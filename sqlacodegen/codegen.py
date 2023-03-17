@@ -6,7 +6,12 @@ import re
 import sys
 from collections import defaultdict
 from importlib import import_module
-from inspect import ArgSpec
+try:
+    from inspect import FullArgSpec
+    def ArgSpec(args, varargs, keywords, defaults):
+        return FullArgSpec(args, varargs, keywords, defaults, [], None, {})
+except ImportError:
+    from inspect import ArgSpec
 from keyword import iskeyword
 
 import sqlalchemy
